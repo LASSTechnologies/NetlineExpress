@@ -10,9 +10,7 @@ const fs = require("fs");
 
 mongoose.set("strictQuery", true);
 
-mongoose.connect(
-  "mongodb+srv://Adrian1998:Administrador1998@basedatoscomputonube.j7szqur.mongodb.net/?retryWrites=true&w=majority"
-);
+mongoose.connect("mongodb+srv://admin:admin2000@netline.assusam.mongodb.net/DB_Integral?retryWrites=true&w=majority");
 
 // Lee los archivos de clave y certificado
 const key = fs.readFileSync("./certs/key.pem");
