@@ -1,0 +1,206 @@
+Usuario({
+    id: "",
+    nombre: "",
+    contra: "",
+    tipo: "",
+})
+
+Cliente({
+    id: "",
+    nombre: "",
+    tipo: "",
+    direccion: "",
+    rfc: "",
+    responsable: {
+        nombre: "",
+        apellido: "",
+        telefono: "",
+        correo: ""
+    },
+    horario: {
+        inicio: "",
+        fin: ""
+    },
+    imagen: "",
+    estatus: "",
+    idUsuario: ""
+})
+
+Empleado({
+    id: "",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    correo: "",
+    direccion: "",
+    puesto: "",
+    imagen: "",
+    estatus: "",
+    idUsuario: ""
+})
+
+Producto({
+    id: "",
+    nombre: "",
+    noParte: "",
+    idProveedores: [
+        "",
+        ""
+    ],
+    tipo: "",
+    categoria: "",
+    descripcion: "",
+    unidad: "",
+    precio: "",
+    existencia: "",
+    imagen: "",
+})
+
+Proveedor({
+    id: "",
+    nombre: "",
+    dirección: "",
+    telefono: [
+
+    ],
+    correo: [
+
+    ]
+})
+
+OrdenServicio({
+    id: "",
+    cliente: {
+        empresa: "",
+        nombre: "",
+        telefono: "",
+        correo: "",
+        direccion: "",
+    },
+    empleado: {
+        recibe: "",
+        participa: [
+            "",
+            "",
+        ]
+    },
+    fecha: {
+        recepcion: "",
+        atencion: ""
+    },
+    horario: {
+        inicio: "",
+        fin: "",
+    },
+    reporte: "",
+    trabajo: "",
+    material: [
+        {
+            nombre: "",
+            noParte: "",
+            descripcion: "",
+            unidad: "",
+            cantidad: ""
+        }
+    ],
+    notas: "",
+    estatus: ""
+})
+
+Dimensionamiento({
+    id: "",
+    nombre: "",
+    cliente: {
+        empresa: "",
+        nombre: "",
+        telefono: "",
+        correo: "",
+        direccion: "",
+    },
+    empleado: {
+        recibe: "",
+        participa: [
+            "",
+            "",
+        ]
+    },
+    fecha: {
+        recepcion: "",
+        atencion: ""
+    },
+    hora: "",
+    reporte: "",
+    descripción: "",
+    servicios: [
+        {
+            nombre: "",
+            categoria: "",
+            descripcion: ""
+        }
+    ],
+    material: [
+        {
+            nombre: "",
+            noParte: "",
+            descripcion: "",
+            unidad: "",
+            cantidad: ""
+        }
+    ],
+    dias: "",
+    horario: "",
+    peronal: "",
+    notas: "",
+    estatus: ""
+})
+
+Cotizacion({
+    id: "",
+    nombre: "",
+    cliente: {
+        empresa: "",
+        nombre: "",
+        telefono: "",
+        correo: "",
+        direccion: "",
+    },
+    empleado: {
+        recibe: "",
+        participa: [
+            "",
+            "",
+        ]
+    },
+    fecha: {
+        recepcion: "",
+        vigencia: ""
+    },
+    pago: "",
+    servicios: [
+        {
+            cantidad: "",
+            imagen: "",
+            descripcion: "",
+            precio: "",
+            subtotal: ""
+        }
+    ],
+    productos: [
+        {
+            cantidad: "",
+            garantia: "",
+            entrega: "",
+            imagen: "",
+            descripcion: "",
+            precio: "",
+            utilidad: "",
+            importe: "",
+            subtotal: "",
+            proveedor
+        }
+    ],
+    total: "",
+    notas: "",
+    estatus: ""
+})
+
