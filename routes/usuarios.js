@@ -102,10 +102,14 @@ router.post("/delete", async (req, res) => {
 
 //Inicio de sesión
 //Daniel.123
-router.post('/iniciosesion',
-  body('nombre').notEmpty().withMessage('Este campo no puede estar vacio').isEmail().withMessage("Introduce un correo elctronico valido"),
+router.post(
+  "/iniciosesion",
+  body("nombre")
+    .notEmpty()
+    .withMessage("Este campo no puede estar vacio")
+    .isEmail()
+    .withMessage("Introduce un correo elctronico valido"),
   async (req, res) => {
-
     let errores = validationResult(req);
 
     if (!errores.isEmpty()) {
@@ -118,18 +122,29 @@ router.post('/iniciosesion',
     }
 
     //if (usu.contra != req.body.contra) {
-    if (!await bcrypt.compare(req.body.contra, usu.contra)) {
+    if (!(await bcrypt.compare(req.body.contra, usu.contra))) {
       return res.status(402).send("Usuario o contraseña incorrectoscontra");
     }
 
     res.send({ usu });
-  });
+  }
+);
 
-//Cambiar contraseña 
-router.put("/contra",
-  body('contraNueva').isStrongPassword({ minLength: 5, minLowercase: 1, minNumbers: 1, minSymbols: 1, minUppercase: 1 }).withMessage('Elige una contraseña mas segura \n Minimo 8 caracteres, utiliza al menos una mayuscula, una minuscula, un numero y un simbolo'),
+//Cambiar contraseña
+router.put(
+  "/contra",
+  body("contraNueva")
+    .isStrongPassword({
+      minLength: 5,
+      minLowercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+      minUppercase: 1,
+    })
+    .withMessage(
+      "Elige una contraseña mas segura \n Minimo 8 caracteres, utiliza al menos una mayuscula, una minuscula, un numero y un simbolo"
+    ),
   async (req, res) => {
-
     let errores = validationResult(req);
 
     if (!errores.isEmpty()) {
@@ -138,29 +153,61 @@ router.put("/contra",
 
     let usu = await Usuario.findOne({ nombre: req.body.nombre });
     if (!usu) {
-      return res.status(402).send("Usuario no encontrado");
+      return res.status(402).json({ error: "Usuario no encontrado" });
     }
 
     if (await bcrypt.compare(req.body.contraAnterior, usu.contra)) {
       let salt = await bcrypt.genSalt(10);
       let pass = await bcrypt.hash(req.body.contraNueva, salt);
       let usu_modificado = await Usuario.findOneAndUpdate(
-        //Lo que se va a buscar
         { nombre: req.body.nombre },
-        //Lo que se va a modificar
-        {
-          contra: pass,
-        },
-        //Lo que se va a retornar, true = Objeto modificado || false = Objeto antes de modificar
-        {
-          new: true,
-        }
+        { contra: pass },
+        { new: true }
       );
+      return res.json({ message: "Cambio de contraseña correcto" });
     } else {
-      return res.status(402).send("Error al cambiar contraseña, Vuelva a intentarlo");
+      return res
+        .status(402)
+        .json({ error: "Error al cambiar contraseña, vuelva a intentarlo" });
     }
+  }
+);
+//router.put("/contra",
+//  body('contraNueva').isStrongPassword({ minLength: 5, minLowercase: 1, minNumbers: 1, minSymbols: 1, minUppercase: 1 }).withMessage('Elige una contraseña mas segura \n Minimo 8 caracteres, utiliza al menos una mayuscula, una minuscula, un numero y un simbolo'),
+//  async (req, res) => {
 
-    res.send("Cambio correcto");
-  });
+//    let errores = validationResult(req);
+
+//    if (!errores.isEmpty()) {
+//      return res.status(402).json({ error: errores.array() });
+//    }
+
+//    let usu = await Usuario.findOne({ nombre: req.body.nombre });
+//    if (!usu) {
+//      return res.status(402).send("Usuario no encontrado");
+//    }
+
+//    if (await bcrypt.compare(req.body.contraAnterior, usu.contra)) {
+//      let salt = await bcrypt.genSalt(10);
+//      let pass = await bcrypt.hash(req.body.contraNueva, salt);
+//      let usu_modificado = await Usuario.findOneAndUpdate(
+//        //Lo que se va a buscar
+//        { nombre: req.body.nombre },
+//        //Lo que se va a modificar
+//        {
+//          contra: pass,
+//        },
+//        //Lo que se va a retornar, true = Objeto modificado || false = Objeto antes de modificar
+//        {
+//          new: true,
+//        }
+//      );
+//    } else {
+//      return res.status(402).send("Error al cambiar contraseña, Vuelva a intentarlo");
+//    }
+
+//    res.send("Cambio correcto");
+//  });
 
 module.exports = router;
+
